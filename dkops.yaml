@@ -1,4 +1,4 @@
 # common config
 common:
   log_level: info
-  log_file: dkops.log
+  log_file: ./log/dkops.log

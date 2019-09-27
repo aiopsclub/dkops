@@ -9,4 +9,4 @@ class Config(object):
 
     def analysis(self):
         with open(self.config_file) as fd:
-            return yaml.load(fd)
+            return yaml.load(fd, Loader=yaml.FullLoader)
