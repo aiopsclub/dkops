@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from utils.logger import logger
+
 
 class DcOps(object):
     def __init__(self):
