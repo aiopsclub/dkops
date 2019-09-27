@@ -1,14 +1,15 @@
 #!/usr/bin/env python
-
 import os
-import sys
 import re
+import sys
 
 import fire
+from apscheduler.events import EVENT_JOB_ERROR
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 from utils.config import Config
-from utils.logger import Logger
 from utils.helper import help_doc
+from utils.logger import Logger
 
 
 class DkOps(object):
