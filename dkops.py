@@ -1,15 +1,33 @@
 #!/usr/bin/env python
 import os
 import re
+import signal
 import sys
+import logging
+import datetime
 
 import fire
-from apscheduler.events import EVENT_JOB_ERROR
+from setproctitle import setproctitle
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 from utils.config import Config
 from utils.helper import help_doc
 from utils.logger import Logger
+from tools.job import docker_monitor
+
+scheduler = BlockingScheduler()
+
+
+def sigterm_handler(signum, frame):
+    logger = logging.getLogger("main")
+    logger.info("exit..., scheduler shutdown.")
+    scheduler.shutdown()
+
+
+def sigint_handler(signum, frame):
+    logger = logging.getLogger("main")
+    logger.info("exit...")
+    exit(0)
 
 
 class DkOps(object):
@@ -47,11 +65,21 @@ class DkOps(object):
     def start(self):
         self.__loadconfig()
         self.__initlogger()
+        setproctitle(self.config["common"].get("proc_name", "dkops"))
         self.logger.info("Start... version: {}".format(self.version))
+        scheduler.add_job(
+            docker_monitor,
+            "interval",
+            seconds=self.config["common"].get("interval", 300),
+            next_run_time=datetime.datetime.now(),
+        )
+        scheduler.start()
 
 
 def main():
     help_pattern = re.compile("(-h|--help)")
+    signal.signal(signal.SIGTERM, sigterm_handler)
+    signal.signal(signal.SIGINT, sigint_handler)
     if len(sys.argv) == 2 and help_pattern.match(sys.argv[1]):
         DkOps.usage()
         sys.exit(0)

@@ -1,9 +1,16 @@
+APScheduler==3.6.1
 certifi==2019.9.11
 chardet==3.0.4
 docker==4.0.2
+fire==0.2.1
 idna==2.8
+isort==4.3.21
+pytz==2019.2
 PyYAML==5.1.2
 requests==2.22.0
+setproctitle==1.1.10
 six==1.12.0
+termcolor==1.1.0
+tzlocal==2.0.0
 urllib3==1.25.6
 websocket-client==0.56.0
