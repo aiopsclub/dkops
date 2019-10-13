@@ -11,8 +11,13 @@ def docker_monitor():
     logger.info("docker version: {} ".format(docker_client.version().get("Version")))
     containers = docker_client.containers(size=True)
     if not containers:
-        logger.info("未发现任何运行的容器")
+        logger.info("Can't find any running container on this machine.")
     else:
         for item in containers:
             container_name = item.get("Names")[0]
-            logger.info(docker_client.stats(container_name, stream=False))
+            SizeRw = item.get("SizeRw")
+            SizeRootFs = item.get("SizeRootFs")
+            docker_stats = docker_client.stats(container_name, stream=False)
+            docker_stats["SizeRw"] = SizeRw
+            docker_stats["SizeRootFs"] = SizeRootFs
+            logger.info(docker_stats)
