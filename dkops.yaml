@@ -1,6 +1,10 @@
-# common config
 common:
   interval: 5
   proc_name: dkops
   log_level: info
   log_file: ./log/dkops.log
+default_limit:
+  # 百分比
+  memory: 20 
+contaier_limit:
+  docker-test: default
