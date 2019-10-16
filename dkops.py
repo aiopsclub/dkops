@@ -71,6 +71,7 @@ class DkOps(object):
             docker_monitor,
             "interval",
             seconds=self.config["common"].get("interval", 300),
+            args=[self.config],
             next_run_time=datetime.datetime.now(),
         )
         scheduler.start()

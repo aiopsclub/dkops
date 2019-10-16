@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 import logging
+from tools.container_helper import container_handler
 
 import docker
 
 logger = logging.getLogger("main")
 
 
-def docker_monitor():
+def docker_monitor(config):
+    logger.info(config)
     docker_client = docker.APIClient(base_url="unix://var/run/docker.sock")
     logger.info("docker version: {} ".format(docker_client.version().get("Version")))
     containers = docker_client.containers(size=True)
@@ -20,4 +22,4 @@ def docker_monitor():
             docker_stats = docker_client.stats(container_name, stream=False)
             docker_stats["SizeRw"] = SizeRw
             docker_stats["SizeRootFs"] = SizeRootFs
-            logger.info(docker_stats)
+            container_handler(config, docker_stats)
