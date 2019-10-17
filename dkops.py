@@ -22,11 +22,13 @@ def sigterm_handler(signum, frame):
     logger = logging.getLogger("main")
     logger.info("exit..., scheduler shutdown.")
     scheduler.shutdown()
+    exit(0)
 
 
 def sigint_handler(signum, frame):
     logger = logging.getLogger("main")
     logger.info("exit...")
+    scheduler.shutdown()
     exit(0)
 
 

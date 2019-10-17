@@ -18,7 +18,7 @@ class Logger(object):
         level="info",
         when="D",
         backCount=3,
-        fmt="%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s",
+        fmt="%(asctime)s - %(pathname)s[line:%(lineno)d] - %(threadName)s - %(levelname)s: %(message)s",
     ):
         self.logger = logging.getLogger("main")
         format_str = logging.Formatter(fmt)  # 设置日志格式
