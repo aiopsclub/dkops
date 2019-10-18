@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 
+import docker
 
-def docker_analysis(docker_info):
-    pass
+docker_client = docker.APIClient(base_url="unix://var/run/docker.sock")

@@ -14,3 +14,8 @@ def help_doc(property_list: List) -> List:
 
 def get_hostname():
     return socket.gethostname()
+
+
+def calc_mem_precent(container_info):
+    mem_info = container_info["memory_stats"]
+    return (float(mem_info["usage"]) / mem_info["limit"]) * 100
