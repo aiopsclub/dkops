@@ -6,5 +6,6 @@ common:
 default_limit:
   # 百分比
   memory: 20 
-contaier_limit:
-  docker-test: default
+container_limit:
+  docker_test: 
+    memory: 50

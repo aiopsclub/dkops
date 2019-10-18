@@ -10,3 +10,7 @@ def common_method_choice(method: str):
 
 def help_doc(property_list: List) -> List:
     return filter(common_method_choice, property_list)
+
+
+def get_hostname():
+    return socket.gethostname()
