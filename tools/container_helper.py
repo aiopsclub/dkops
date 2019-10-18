@@ -12,7 +12,7 @@ def container_handler(config, container_info):
     container_name = container_info.get("name", "").strip("/")
     if container_name in config.get("container_limit"):
         limit_config = config["container_limit"][container_name]
-        # 判断limit_confi的具体配置
+        # 判断limit_config的具体配置
         if limit_config == "default":
             mem_limit = config.get("default_limit", {}).get("memory", 20)
         elif isinstance(limit_config, dict):
