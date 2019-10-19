@@ -20,3 +20,7 @@ def dingding(token, msg, timeout=10):
         dingding_res.raise_for_status()
     except Exception:
         logger.error(traceback.format_exc())
+
+
+def webhooks(hookinfo):
+    pass
