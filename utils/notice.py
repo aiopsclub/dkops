@@ -22,5 +22,13 @@ def dingding(token, msg, timeout=10):
         logger.error(traceback.format_exc())
 
 
-def webhooks(hookinfo):
-    pass
+def webhook(url, hookinfo, timeout=10):
+    try:
+        webhooks_res = requests.post(url, json=hookinfo, timeout=timeout)
+        if webhooks_res.status_code == 200:
+            logger.info("webhooks发送成功")
+        else:
+            logger.error("webhook消息发送失败")
+    except Exception:
+        logger.error("webhook消息发送失败")
+        logger.error(traceback.format_exc())

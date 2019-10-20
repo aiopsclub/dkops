@@ -1,6 +1,6 @@
 common:
   restart_timeout: 600
-  interval: 5
+  interval: 10 
   proc_name: dkops
   log_level: info
   log_file: ./log/dkops.log
@@ -10,3 +10,8 @@ default_limit:
 container_limit:
   docker_test: 
     memory: 0
+
+notice:
+  # method: webhook or dingding
+  method: webhook
+  url: http://localhost:8888/webhook
