@@ -11,7 +11,7 @@ from setproctitle import setproctitle
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 from utils.config import Config
-from utils.helper import help_doc
+from utils.helper import help_doc, clean_lock_dir
 from utils.logger import Logger
 from tools.job import docker_monitor
 
@@ -69,6 +69,7 @@ class DkOps(object):
         self.__initlogger()
         setproctitle(self.config["common"].get("proc_name", "dkops"))
         self.logger.info("Start... version: {}".format(self.version))
+        clean_lock_dir(self.config)
         scheduler.add_job(
             docker_monitor,
             "interval",
