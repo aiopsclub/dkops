@@ -41,7 +41,7 @@ def ensure_lock_dir_exist(config):
 
 
 def create_container_lock_file(config, container_name):
-    lock_file_dir = ensure_lock_dir_exist(config, container_name)
+    lock_file_dir = ensure_lock_dir_exist(config)
     lock_file_name = os.path.join(lock_file_dir, container_name + ".lock")
 
     if not os.path.isfile(lock_file_name):
@@ -49,6 +49,15 @@ def create_container_lock_file(config, container_name):
         fd.close()
 
 
+def remove_container_lock_file(config, container_name):
+    lock_file_dir = ensure_lock_dir_exist(config)
+    lock_file_name = os.path.join(lock_file_dir, container_name + ".lock")
+
+    if not os.path.isfile(lock_file_name):
+        return
+    os.remove(lock_file_name)
+
+
 def is_lock_file_exist(config, container_name):
-    lock_file_dir = ensure_lock_dir_exist(config, container_name)
+    lock_file_dir = ensure_lock_dir_exist(config)
     return os.path.exists(os.path.join(lock_file_dir, container_name + ".lock"))

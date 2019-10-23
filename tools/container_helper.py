@@ -4,7 +4,12 @@ import sys
 import traceback
 
 from utils.docker_helper import docker_client
-from utils.helper import calc_mem_precent
+from utils.helper import (
+    calc_mem_precent,
+    is_lock_file_exist,
+    create_container_lock_file,
+    remove_container_lock_file,
+)
 from utils.message_send_helper import msg_sender
 
 
@@ -34,6 +39,10 @@ def container_handler(config, container_size_info):
             logger.warn(first_msg)
             msg_sender(config, first_msg, container_info)
             try:
+                if is_lock_file_exist(config, container_name):
+                    logger.warn("{} lock file exists. skipping...")
+                    return
+                create_container_lock_file(config, container_name)
                 docker_client.restart(
                     container_info["id"],
                     config.get("common", {}).get("restart_timeout", 600),
@@ -43,6 +52,8 @@ def container_handler(config, container_size_info):
                 end_msg = "container {} restart failed!".format(container_name)
             else:
                 end_msg = "container {} restart successfully!".format(container_name)
+            remove_container_lock_file(config, container_name)
+
             logger.warn(end_msg)
             msg_sender(config, end_msg, container_info)
         else:
