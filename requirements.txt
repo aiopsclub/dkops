@@ -6,7 +6,7 @@ fire==0.2.1
 idna==2.8
 isort==4.3.21
 pytz==2019.2
-PyYAML==5.1.2
+PyYAML==5.4
 requests==2.22.0
 setproctitle==1.1.10
 six==1.12.0
